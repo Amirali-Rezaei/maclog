@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="fa">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>خواندن مقاله</title>
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.rtl.min.css"
+      integrity="sha384-gXt9imSW0VcJVHezoNQsP+TNrjYXoGcrqBZJpry9zJt8PCQjobwmhMGaDHTASo9N"
+      crossorigin="anonymous"
+    />
+    <link rel="stylesheet" href="/main.css" />
+  </head>
+  <body>
+    <%- include('../common/nav.ejs') %>
+    <div class="container mt-3">
+      <div class="mb-3 text-center">
+        <img src="/uploads/<%= article.image %>" alt="عکس" width="750px" />
+      </div>
+      <h1 class="mb-3"><%= article.title %></h1>
+      <h5>نویسنده: <%= article.writer.fname %> <%= article.writer.lName %></h5>
+      <h5 class="text-muted">
+        <%= article.createdAt.toLocaleDateString('fa-IR') %>
+      </h5>
+
+      <hr />
+      <p><%- article.body %></p>
+      <hr />
+      <h3>نظر خود را وارد کنید</h3>
+      <form action="/comment/createComment/<%= article._id %>" method="POST">
+        <textarea
+          name="text"
+          id="comment_body"
+          class="form-control"
+          placeholder="نظر"
+        ></textarea>
+        <input
+          type="submit"
+          value="ثبت"
+          class="btn btn-outline-success mt-2 mb-2"
+        />
+      </form>
+      <% comments.forEach(comment => { %>
+      <div class="card mb-3">
+        <div class="card-body">
+          <h5><%= comment.writer %></h5>
+          <p class="mb-0 mt-3"><%- comment.text %></p>
+        </div>
+      </div>
+      <% }) %>
+    </div>
+    <script
+      src="https://cdn.tiny.cloud/1/cog8xcstvqjd7lkg8h9nfctmkzwof44klwjfys3nx8d0s59y/tinymce/5/tinymce.min.js"
+      referrerpolicy="origin"
+    ></script>
+    <script>
+      tinymce.init({
+        selector: "#comment_body",
+        content_css: "/main.css",
+      });
+    </script>
+  </body>
+</html>

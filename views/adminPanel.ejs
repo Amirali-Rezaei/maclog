@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>پنل ادمین</title>
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.rtl.min.css"
+      integrity="sha384-gXt9imSW0VcJVHezoNQsP+TNrjYXoGcrqBZJpry9zJt8PCQjobwmhMGaDHTASo9N"
+      crossorigin="anonymous"
+    />
+    <link rel="stylesheet" href="/main.css" />
+  </head>
+
+  <body>
+    <div class="container">
+      <nav class="navbar d-flex justify-content-between align-items-center">
+        <div class="text-start d-flex align-items-center">
+          <h1 class="navbar-brand m-0 d-inline-block">پنل ادمین</h1>
+          <h2 class="d-inline-block m-0 ms-1 me-1">|</h2>
+          <a href="/" class="btn btn-primary">خانه</a>
+        </div>
+        <div class="text-end">
+          <a href="/logout" class="btn btn-danger">خروج</a>
+        </div>
+      </nav>
+    </div>
+    <hr class="mt-0" />
+    <main>
+      <div class="container">
+        <div class="btns mb-2 d-flex align-items-center">
+          <!-- <a href="/signUp/createAdmin" class="btn btn-success"
+            >ساخت ادمین جدید</a
+          > -->
+          <a href="/createArticle" class="btn btn-success">ساخت مقاله</a>
+        </div>
+        <div
+          class="d-flex align-items-center justify-content-center flex-column gap-2"
+        >
+          <img
+            src="/uploads/<%= user.photo %>"
+            alt="عکس کاربر"
+            class="rounded-circle"
+            width="250px"
+            height="250px"
+          />
+          <form
+            action="/dashboard/changePhoto"
+            method="post"
+            enctype="multipart/form-data"
+          >
+            <input
+              type="file"
+              name="profile_photo"
+              id="photo_file"
+              class="form-control mb-2"
+              hidden
+            />
+            <input
+              type="button"
+              id="photoEdit"
+              value="ویرایش عکس"
+              class="btn btn-warning"
+            />
+            <input
+              type="submit"
+              value="ذخیره"
+              class="btn btn-success d-none"
+              id="photoEditBtn"
+            />
+          </form>
+        </div>
+        <form action="/dashboard" method="POST">
+          <input
+            type="text"
+            name="fName"
+            disabled
+            class="mt-2 form-control"
+            value="<%= user.fName %>"
+          />
+          <input
+            type="text"
+            name="lName"
+            disabled
+            class="mt-2 form-control"
+            value="<%= user.lName %>"
+          />
+          <input
+            type="text"
+            name="userName"
+            disabled
+            class="mt-2 form-control"
+            value="<%= user.userName %>"
+          />
+          <input
+            type="text"
+            name="phoneNumber"
+            disabled
+            class="mt-2 form-control"
+            value="<%= user.phoneNumber %>"
+          />
+          <input
+            type="text"
+            name="gender"
+            disabled
+            class="mt-2 form-control"
+            value="<%= user.gender %>"
+          />
+          <input
+            type="button"
+            value="ویرایش"
+            class="mt-2 btn btn-warning"
+            id="editBtn"
+          />
+          <input
+            type="submit"
+            value="ذخیره"
+            class="mt-2 btn btn-success d-none"
+            id="saveBtn"
+          />
+        </form>
+        <hr />
+        <table class="table">
+          <h3>کاربران</h3>
+          <thead>
+            <tr>
+              <th scope="col">#</th>
+              <th scope="col">نام</th>
+              <th scope="col">نام خانوادگی</th>
+              <th scope="col">نام کاربری</th>
+              <th scope="col">شماره تماس</th>
+              <th scope="col">جنسیت</th>
+              <th scope="col">عملیات</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% bloggers.forEach((blogger, index) => { %>
+            <tr>
+              <th scope="row"><%= index + 1 %></th>
+              <td><%= blogger.fName %></td>
+              <td><%= blogger.lName %></td>
+              <td><%= blogger.userName %></td>
+              <td><%= blogger.phoneNumber %></td>
+              <td><%= blogger.gender %></td>
+              <td>
+                <a
+                  href="/userControl/deleteUserByAdmin/<%= blogger._id %>"
+                  class="btn btn-danger"
+                  >حذف کاربر</a
+                >
+                <button class="btn btn-warning" id="passwordChange">
+                  بازیابی رمز عبور
+                </button>
+                <form
+                  action="/userControl/passwordChanging/<%= blogger._id %>"
+                  method="post"
+                  class="mt-2"
+                >
+                  <input
+                    type="password"
+                    name="password"
+                    id="newPassword"
+                    class="form-control"
+                    placeholder="رمز عبور جدید"
+                    hidden
+                  />
+                  <button
+                    type="submit"
+                    class="btn btn-success mt-2 d-none"
+                    id="passwordSubmit"
+                  >
+                    ویرایش رمز عبور
+                  </button>
+                </form>
+              </td>
+            </tr>
+            <% }) %>
+          </tbody>
+        </table>
+        <hr />
+        <table class="table">
+          <h3>مدیران</h3>
+          <thead>
+            <tr>
+              <th scope="col">#</th>
+              <th scope="col">نام</th>
+              <th scope="col">نام خانوادگی</th>
+              <th scope="col">نام کاربری</th>
+              <th scope="col">شماره تماس</th>
+              <th scope="col">جنسیت</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% admins.forEach((admin, index) => { %>
+            <tr>
+              <th scope="row"><%= index + 1 %></th>
+              <td><%= admin.fName %></td>
+              <td><%= admin.lName %></td>
+              <td><%= admin.userName %></td>
+              <td><%= admin.phoneNumber %></td>
+              <td><%= admin.gender %></td>
+            </tr>
+            <% }) %>
+          </tbody>
+        </table>
+        <hr />
+        <%- include('./common/articlesTable.ejs') %>
+        <hr />
+        <table class="table">
+          <h3>کامنت های کاربران</h3>
+          <thead>
+            <tr>
+              <th scope="col">#</th>
+              <th scope="col">متن</th>
+              <th scope="col">نام نویسنده</th>
+              <th scope="col">تاریخ ثبت</th>
+              <th scope="col">عملیات</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% comments.forEach((comment, index) => { %>
+            <tr>
+              <th scope="row"><%= index + 1 %></th>
+              <td><%= comment.text.substring(0,15) %></td>
+              <td><%= comment.writer %></td>
+              <td><%= comment.createdAt.toLocaleDateString('fa-IR') %></td>
+              <td>
+                <a
+                  class="btn btn-danger"
+                  href="/comment/deleteComment/<%= comment._id %>"
+                  >حذف</a
+                >
+              </td>
+            </tr>
+            <% }) %>
+          </tbody>
+        </table>
+      </div>
+    </main>
+    <script src="/adminPanel.js"></script>
+  </body>
+</html>

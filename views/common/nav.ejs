@@ -1,0 +1,51 @@
+<nav class="navbar navbar-expand-lg border border-bottom border-2">
+  <div class="container-fluid">
+    <a class="navbar-brand fs-3 text-dark" href="/">مک لاگ</a>
+    <button
+      class="navbar-toggler"
+      type="button"
+      data-bs-toggle="collapse"
+      data-bs-target="#navbarSupportedContent"
+      aria-controls="navbarSupportedContent"
+      aria-expanded="false"
+      aria-label="Toggle navigation"
+    >
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav me-auto align-items-center">
+        <li class="nav-item">
+          <a class="nav-link text-dark" aria-current="page" href="/">خانه</a>
+        </li>
+        <span class="mr-2 me-2">|</span>
+        <li class="nav-item">
+          <% if (!isLoggedIn) { %>
+          <a
+            href="/login"
+            class="text-dark pt-2 pb-2 d-inline-block text-decoration-none"
+            >ورود</a
+          >
+          <span>/</span>
+          <a
+            href="/signUp"
+            class="text-dark pt-2 pb-2 d-inline-block text-decoration-none"
+            >ثبت نام</a
+          >
+          <% } else { %>
+          <a href="/dashboard" class="btn btn-outline-primary">داشبورد</a>
+          <a href="/logout" class="btn btn-outline-danger">خروج</a>
+          <% } %>
+        </li>
+      </ul>
+      <form class="d-flex">
+        <input
+          class="form-control me-2"
+          type="search"
+          placeholder="جست‌و‌جو"
+          aria-label="Search"
+        />
+        <button class="btn btn-outline-success" type="submit">جست‌و‌جو</button>
+      </form>
+    </div>
+  </div>
+</nav>

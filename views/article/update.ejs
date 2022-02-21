@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ساخت مقاله</title>
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.rtl.min.css"
+      integrity="sha384-gXt9imSW0VcJVHezoNQsP+TNrjYXoGcrqBZJpry9zJt8PCQjobwmhMGaDHTASo9N"
+      crossorigin="anonymous"
+    />
+    <link rel="stylesheet" href="/main.css" />
+  </head>
+  <body>
+    <%- include('../common/nav.ejs') %>
+    <div class="container mt-5">
+      <form
+        action="/editArticlePicture/<%= article._id %>"
+        method="post"
+        enctype="multipart/form-data"
+        class="text-center"
+      >
+        <input
+          id="file"
+          type="file"
+          name="article_pic"
+          accept="image/*"
+          class="form-control"
+          hidden
+        />
+        <label for="file" class="btn btn-primary mb-1">انتخاب تصویر مقاله</label
+        ><br />
+        <img
+          src="/uploads/<%= article.image %>"
+          alt=""
+          width="900px"
+          id="picturePreview"
+        />
+        <span id="file-chosen" class="mb-2 text-dark d-block"
+          >تصویر فعلی مقاله</span
+        >
+      </form>
+      <form
+        action="/editArticle/<%= article._id %>"
+        method="post"
+        class="text-center"
+      >
+        <input
+          type="text"
+          name="title"
+          class="form-control mb-2"
+          placeholder="عنوان"
+          value="<%= article.title %>"
+          required
+        />
+        <textarea
+          name="body"
+          class="form-control mb-2"
+          placeholder="متن مقاله"
+          id="article_text"
+        >
+        <%- article.body %></textarea
+        >
+        <input
+          type="submit"
+          value="ساخت مقاله"
+          class="btn btn-success mt-2 mb-2"
+        />
+      </form>
+    </div>
+    <script
+      src="https://cdn.tiny.cloud/1/cog8xcstvqjd7lkg8h9nfctmkzwof44klwjfys3nx8d0s59y/tinymce/5/tinymce.min.js"
+      referrerpolicy="origin"
+    ></script>
+    <script src="/article/create.js"></script>
+  </body>
+</html>

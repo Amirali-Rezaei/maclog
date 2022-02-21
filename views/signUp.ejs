@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>فرم ثبت نام</title>
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.rtl.min.css"
+      integrity="sha384-gXt9imSW0VcJVHezoNQsP+TNrjYXoGcrqBZJpry9zJt8PCQjobwmhMGaDHTASo9N"
+      crossorigin="anonymous"
+    />
+    <link rel="stylesheet" href="/main.css" />
+  </head>
+  <body
+    id="signUp"
+    class="p-2 d-flex align-items-center justify-content-center"
+  >
+    <div
+      class="container d-flex align-items-center justify-content-center flex-column"
+    >
+      <% if (msg) { %>
+      <div class="alert alert-danger" role="alert"><%= msg %></div>
+      <% } %>
+
+      <form
+        action="/signUp"
+        method="post"
+        class="d-flex align-items-center justify-content-center flex-column"
+        enctype="multipart/form-data"
+      >
+        <!-- <label for="file" class="form-label text-white">عکس پروفایل</label> -->
+        <input
+          id="file"
+          type="file"
+          name="profile_pic"
+          accept="image/*"
+          class="form-control mb-2 w-auto"
+          hidden
+        />
+        <label for="file" class="btn btn-primary mb-2"
+          >انتخاب تصویر پروفایل</label
+        >
+        <img src="#" alt="" width="300px" id="picturePreview" />
+        <span id="file-chosen" class="mt-1 mb-2 text-white"
+          >هیچ فایلی انتخاب نشده</span
+        >
+        <input
+          type="text"
+          name="fName"
+          class="form-control mb-2 w-auto"
+          placeholder="نام"
+          required
+        />
+        <input
+          type="text"
+          name="lName"
+          class="form-control mb-2 w-auto"
+          placeholder="نام خانوادگی"
+          required
+        />
+        <input
+          type="text"
+          name="userName"
+          class="form-control mb-2 w-auto"
+          placeholder="نام کاربری"
+          required
+        />
+        <input
+          type="password"
+          name="password"
+          class="form-control mb-2 w-auto"
+          placeholder="رمز عبور"
+          required
+        />
+        <input
+          type="text"
+          name="phoneNumber"
+          class="form-control mb-2 w-auto"
+          placeholder="شماره تلفن"
+          required
+        />
+        <input
+          type="text"
+          name="gender"
+          class="form-control mb-2 w-auto"
+          placeholder="جنسیت (زن، مرد)"
+          required
+        />
+        <input type="submit" value="ثبت نام" class="btn btn-success" />
+      </form>
+    </div>
+    <script src="/signUp.js"></script>
+  </body>
+</html>
