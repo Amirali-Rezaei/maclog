@@ -7,7 +7,9 @@ const auth = require("./routers/auth");
 const session = require("express-session");
 const articleRouter = require("./routers/article");
 
-mongoose.connect("mongodb://localhost/blog");
+mongoose.connect(
+  "mongodb://root:Se6HeNZBVhXcBDHppDW34q1i@maclog-db:27017/my-app?authSource=admin"
+);
 
 app.set("view engine", "ejs");
 app.use(express.urlencoded({ extended: true }));
