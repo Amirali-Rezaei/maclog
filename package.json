@@ -1,10 +1,10 @@
 {
-  "name": "amirali_reazei_hw18_maktab62",
+  "name": "Maclog",
   "version": "1.0.0",
-  "description": "",
+  "description": "Blog",
   "main": "server.js",
   "scripts": {
-    "start": "nodemon server.js"
+    "start": "node server.js"
   },
   "keywords": [],
   "author": "",
@@ -20,8 +20,5 @@
     "uuid": "^8.3.2",
     "validator": "^13.7.0",
     "vazir-font": "^30.1.0"
-  },
-  "devDependencies": {
-    "nodemon": "^2.0.15"
   }
 }

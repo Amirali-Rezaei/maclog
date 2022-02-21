@@ -15,7 +15,7 @@ const uploadFile = multer({
   storage: fileStorage,
   fileFilter: function (req, file, cb) {
     if (!file.originalname.match(/\.(jpg|jpeg|png)$/)) {
-      return cb("invalid type!", false);
+      return cb("نوع فایل درست نیست", false);
     }
     cb(null, true);
   },
