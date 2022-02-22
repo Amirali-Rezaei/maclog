@@ -54,7 +54,8 @@ router.post("/passwordChanging/:id", async (req, res) => {
     ) {
       // let password = req.body.password;
       bcrypt.hash(req.body.password, 10, async (err, hash) => {
-        if (err) console.log(error);
+        if (err) res.render("error_pages/range_500", { msg: err });
+
         await User.findOneAndUpdate(
           { _id: req.params.id },
           {

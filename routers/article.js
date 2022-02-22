@@ -54,7 +54,6 @@ router.post(
 router.get("/readArticle/:id", async (req, res) => {
   try {
     const article = await Article.findOne({ _id: req.params.id }).populate('writer');
-    console.log(article);
     const comments = await Comment.find({ articleId: article._id });
     let isLoggedIn = false;
 

@@ -20,7 +20,7 @@
         <img src="/uploads/<%= article.image %>" alt="عکس" width="750px" />
       </div>
       <h1 class="mb-3"><%= article.title %></h1>
-      <h5>نویسنده: <%= article.writer.fname %> <%= article.writer.lName %></h5>
+      <h5>نویسنده: <%= article.writer.fName %> <%= article.writer.lName %></h5>
       <h5 class="text-muted">
         <%= article.createdAt.toLocaleDateString('fa-IR') %>
       </h5>
@@ -42,14 +42,16 @@
           class="btn btn-outline-success mt-2 mb-2"
         />
       </form>
-      <% comments.forEach(comment => { %>
-      <div class="card mb-3">
-        <div class="card-body">
-          <h5><%= comment.writer %></h5>
-          <p class="mb-0 mt-3"><%- comment.text %></p>
+      <div class="mb-3">
+        <% comments.forEach(comment => { %>
+        <div class="card mb-3">
+          <div class="card-body">
+            <h5><%= comment.writer %></h5>
+            <p class="mb-0 mt-3"><%- comment.text %></p>
+          </div>
         </div>
+        <% }) %>
       </div>
-      <% }) %>
     </div>
     <script
       src="https://cdn.tiny.cloud/1/cog8xcstvqjd7lkg8h9nfctmkzwof44klwjfys3nx8d0s59y/tinymce/5/tinymce.min.js"
