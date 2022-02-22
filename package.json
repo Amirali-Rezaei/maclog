@@ -1,5 +1,5 @@
 {
-  "name": "Maclog",
+  "name": "maclog",
   "version": "1.0.0",
   "description": "Blog",
   "main": "server.js",
