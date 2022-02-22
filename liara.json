@@ -1,0 +1,8 @@
+{
+  "disks": [
+    {
+      "name": "uploads",
+      "mountTo": "public/uploads"
+    }
+  ]
+}
