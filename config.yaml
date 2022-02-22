@@ -1,0 +1,50 @@
+apiVersion: v1
+kind: Config
+preferences: { }
+clusters:
+  
+  - cluster:
+      server: https://085a1ea8-01d2-4842-ab18-133eb59f9f48.k8s.onhamravesh.ir
+    name: hamravesh-c5
+  
+  - cluster:
+      server: https://df891508-1c23-4532-a581-1c6c4bc6e40c.k8s.onhamravesh.ir
+    name: hamravesh-c14
+  
+  - cluster:
+      server: https://d581ef41-184a-48fe-9e05-d643bf4766b4.k8s.onhamravesh.ir
+    name: hamravesh-c11
+  
+contexts:
+  
+  - context:
+      cluster: hamravesh-c14
+      namespace: exjnnd
+      user: hamravesh-console-oidc
+    name: hamravesh-c14-exjnnd
+  
+  - context:
+      cluster: hamravesh-c5
+      namespace: exjnnd
+      user: hamravesh-console-oidc
+    name: hamravesh-c5-exjnnd
+  
+  - context:
+      cluster: hamravesh-c11
+      namespace: exjnnd
+      user: hamravesh-console-oidc
+    name: hamravesh-c11-exjnnd
+  
+current-context: hamravesh-c11-exjnnd
+users:
+  - name: hamravesh-console-oidc
+    user:
+      exec:
+        apiVersion: client.authentication.k8s.io/v1beta1
+        args:
+          - oidc-login
+          - get-token
+          - --oidc-issuer-url=https://api.console.hamravesh.ir/openid
+          - --oidc-client-id=kubernetes
+          - --oidc-extra-scope=openid,profile,email
+        command: kubectl
