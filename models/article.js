@@ -18,7 +18,7 @@ const articleSchema = new mongoose.Schema(
     //   required: true,
     // },
     writer: {
-      type: mongoose.Schema.Types.ObjectId,
+      type: Object,
       required: true,
       ref: "User",
     },

@@ -14,7 +14,10 @@ router.get("/", async (req, res) => {
     const user = req.session.user;
     const bloggers = await User.find({ role: "blogger" });
     const admins = await User.find({ role: "admin" });
-    const articles = await Article.find({ writer: req.session.user._id }).sort({
+    const articles = await Article.find({ "writer._id": req.session.user._id }).sort({
+      createdAt: -1,
+    });
+    const allArticles = await Article.find({}).sort({
       createdAt: -1,
     });
     const comments = await Comment.find({});
@@ -25,6 +28,7 @@ router.get("/", async (req, res) => {
       articles,
       comments,
       user,
+      allArticles
     });
   } else {
     res.redirect("/login");

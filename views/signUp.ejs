@@ -81,14 +81,20 @@
           placeholder="شماره تلفن"
           required
         />
-        <input
-          type="text"
-          name="gender"
-          class="form-control mb-2 w-auto"
-          placeholder="جنسیت (زن، مرد)"
-          required
-        />
+        <select name="gender" class="form-control w-auto mb-2">
+          <option value="">جنسیت خود را انتخاب کنید</option>
+          <option value="مرد">مرد</option>
+          <option value="زن">زن</option>
+        </select>
         <input type="submit" value="ثبت نام" class="btn btn-success" />
+        <p class="text-white">
+          حساب کاربری دارید؟
+          <a
+            href="/login"
+            class="pt-2 pb-2 d-inline-block text-decoration-none"
+            >ورود</a
+          >
+        </p>
       </form>
     </div>
     <script src="/signUp.js"></script>

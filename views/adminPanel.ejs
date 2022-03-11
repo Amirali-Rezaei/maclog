@@ -209,6 +209,51 @@
         <%- include('./common/articlesTable.ejs') %>
         <hr />
         <table class="table">
+          <h3>همه مقاله ها</h3>
+          <thead>
+            <tr>
+              <th scope="col">#</th>
+              <th scope="col">عنوان</th>
+              <th scope="col">عکس</th>
+              <th scope="col">متن</th>
+              <th scope="col">نام نویسنده</th>
+              <th scope="col">تاریخ ثبت</th>
+              <th scope="col">عملیات</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% allArticles.forEach((article, index) => { %>
+            <tr>
+              <th scope="row"><%= index + 1 %></th>
+              <td><%= article.title %></td>
+              <td>
+                <img
+                  src="/uploads/<%= article.image %>"
+                  alt="عکس"
+                  width="100px"
+                />
+              </td>
+              <td><%= article.body.substring(0,15) %></td>
+              <td><%= article.writer.fName %> <%= article.writer.lName %></td>
+              <td><%= article.createdAt.toLocaleDateString('fa-IR') %></td>
+              <td>
+                <a
+                  href="/readArticle/<%= article._id %>"
+                  class="btn btn-primary"
+                  >خواندن</a
+                >
+                <a
+                  href="/deleteArticleByAdmin/<%= article._id %>"
+                  class="btn btn-danger"
+                  >حذف</a
+                >
+              </td>
+            </tr>
+            <% }) %>
+          </tbody>
+        </table>
+        <hr />
+        <table class="table">
           <h3>کامنت های کاربران</h3>
           <thead>
             <tr>

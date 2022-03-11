@@ -9,6 +9,7 @@ const commentSchema = new mongoose.Schema(
     writerId: {
       type: String,
       required: true,
+      ref: "User",
     },
     text: {
       type: String,
@@ -17,6 +18,7 @@ const commentSchema = new mongoose.Schema(
     articleId: {
       type: String,
       required: true,
+      ref: "Article",
     },
   },
   {

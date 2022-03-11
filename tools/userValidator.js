@@ -1,14 +1,35 @@
+const validator = require("validator");
+
 function validate(req) {
+  // console.log(req.file);
+  // console.log(req.file.mimetype);
   if (
     !req.body.fName ||
     !req.body.lName ||
     !req.body.userName ||
     !req.body.password ||
-    !req.body.phoneNumber
+    !req.body.phoneNumber ||
+    !req.file
   ) {
     return {
       success: false,
       msg: "همه فیلد ها باید پر شده باشه",
+    };
+  }
+
+  const fileSizeInMegabytes = req.file.size / (1024 * 1024);
+
+  if (!(fileSizeInMegabytes < 2)) {
+    return {
+      success: false,
+      msg: "عکس ارسالی حداکثر باید 2 مگابایت باشد",
+    };
+  }
+
+  if (!req.file.originalname.match(/\.(jpg|jpeg|png)$/)) {
+    return {
+      success: false,
+      msg: "فرمت عکس قابل قبول نیست",
     };
   }
 
@@ -34,6 +55,13 @@ function validate(req) {
     return {
       success: false,
       msg: "رمز عبور باید حداقل 8 حرف، متشکل از اعداد و دارای حداقل یک حرف بزرگ انگلیسی باشد",
+    };
+  }
+
+  if (!validator.isMobilePhone(req.body.phoneNumber, "fa-IR")) {
+    return {
+      success: false,
+      msg: "شماره تلفن را درست وارد کنید!",
     };
   }
 

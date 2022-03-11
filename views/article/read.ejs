@@ -47,6 +47,7 @@
         <div class="card mb-3">
           <div class="card-body">
             <h5><%= comment.writer %></h5>
+            <h6><%= comment.createdAt.toLocaleDateString('fa-IR')  %></h6>
             <p class="mb-0 mt-3"><%- comment.text %></p>
           </div>
         </div>

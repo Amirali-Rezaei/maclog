@@ -12,11 +12,9 @@ router.get("/", async (req, res) => {
       return res.redirect("/admin");
     }
 
-    const articles = await Article.find({ writer: user._id })
-      .sort({
-        createdAt: -1,
-      })
-      .populate("writer");
+    const articles = await Article.find({ "writer._id": user._id }).sort({
+      createdAt: -1,
+    });
     // console.log(articles);
     return res.render("dashboard", { user, articles });
   } else {

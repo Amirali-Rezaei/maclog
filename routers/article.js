@@ -2,7 +2,7 @@ const express = require("express");
 const router = express.Router();
 const Article = require("../models/article");
 const upload = require("../tools/uploadFile");
-const User = require("../models/user");
+// const User = require("../models/user");
 const Comment = require("../models/comment");
 
 // Index page
@@ -53,7 +53,7 @@ router.post(
 // Read
 router.get("/readArticle/:id", async (req, res) => {
   try {
-    const article = await Article.findOne({ _id: req.params.id }).populate('writer');
+    const article = await Article.findOne({ _id: req.params.id });
     const comments = await Comment.find({ articleId: article._id });
     let isLoggedIn = false;
 
@@ -75,11 +75,39 @@ router.get("/readArticle/:id", async (req, res) => {
 router.get("/deleteArticle/:id", async (req, res) => {
   if (req.session.user && req.cookies.user_seed) {
     try {
+      const article = await Article.findOne({ _id: req.params.id });
+      if (!(article.writer._id == req.session.user._id)) {
+        return res.redirect("/404");
+      }
       await Article.findOneAndDelete({ _id: req.params.id });
+      await Comment.deleteMany({
+        articleId: req.params.id,
+      });
 
-      res.redirect("/dashboard");
+      return res.redirect("/dashboard");
     } catch (error) {
-      res.render("error_pages/range_500", { msg: error });
+      return res.render("error_pages/range_500", { msg: error });
+    }
+  } else {
+    res.redirect("/login");
+  }
+});
+
+router.get("/deleteArticleByAdmin/:id", async (req, res) => {
+  if (
+    req.session.user &&
+    req.cookies.user_seed &&
+    req.session.user.role == "admin"
+  ) {
+    try {
+      await Article.findOneAndDelete({ _id: req.params.id });
+      await Comment.deleteMany({
+        articleId: req.params.id,
+      });
+
+      res.redirect("/admin");
+    } catch (error) {
+      return res.render("error_pages/range_500", { msg: error });
     }
   } else {
     res.redirect("/login");
@@ -91,10 +119,13 @@ router.get("/editArticle/:id", async (req, res) => {
   try {
     if (req.session.user && req.cookies.user_seed) {
       const article = await Article.findOne({ _id: req.params.id });
+      if (!(article.writer._id == req.session.user._id)) {
+        return res.redirect("/404");
+      }
 
-      res.render("article/update", { article, isLoggedIn: true });
+      return res.render("article/update", { article, isLoggedIn: true });
     } else {
-      res.redirect("/login");
+      return res.redirect("/login");
     }
   } catch (error) {
     res.render("error_pages/range_500", { msg: error });
@@ -174,5 +205,20 @@ router.post(
 //   }
 //   next();
 // }
+
+router.get("/searchArticle/:search", async (req, res) => {
+  try {
+    let isLoggedIn = false;
+    const articles = await Article.find({ title: req.params.search });
+
+    if (req.session.user && req.cookies.user_seed) {
+      isLoggedIn = true;
+    }
+
+    res.render("searchResult", { articles, isLoggedIn });
+  } catch (error) {
+    res.render("error_pages/range_500", { msg: error });
+  }
+});
 
 module.exports = router;

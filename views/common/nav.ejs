@@ -25,12 +25,6 @@
             class="text-dark pt-2 pb-2 d-inline-block text-decoration-none"
             >ورود</a
           >
-          <span>/</span>
-          <a
-            href="/signUp"
-            class="text-dark pt-2 pb-2 d-inline-block text-decoration-none"
-            >ثبت نام</a
-          >
           <% } else { %>
           <a href="/dashboard" class="btn btn-outline-primary">داشبورد</a>
           <a href="/logout" class="btn btn-outline-danger">خروج</a>
@@ -41,10 +35,13 @@
         <input
           class="form-control me-2"
           type="search"
+          id="search"
           placeholder="جست‌و‌جو"
           aria-label="Search"
         />
-        <button class="btn btn-outline-success" type="submit">جست‌و‌جو</button>
+        <button class="btn btn-outline-success" type="submit" id="searchBtn">
+          جست‌و‌جو
+        </button>
       </form>
     </div>
   </div>
