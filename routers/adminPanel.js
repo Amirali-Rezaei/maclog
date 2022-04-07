@@ -14,7 +14,9 @@ router.get("/", async (req, res) => {
     const user = req.session.user;
     const bloggers = await User.find({ role: "blogger" });
     const admins = await User.find({ role: "admin" });
-    const articles = await Article.find({ "writer._id": req.session.user._id }).sort({
+    const articles = await Article.find({
+      "writer._id": req.session.user._id,
+    }).sort({
       createdAt: -1,
     });
     const allArticles = await Article.find({}).sort({
@@ -28,7 +30,7 @@ router.get("/", async (req, res) => {
       articles,
       comments,
       user,
-      allArticles
+      allArticles,
     });
   } else {
     res.redirect("/login");
@@ -39,7 +41,7 @@ router.post("/", async (req, res) => {
   try {
     let user = false;
     if (req.body.userName != req.session.user.userName) {
-      user = await User.findOne(req.body.userName);
+      user = await User.findOne({ userName: req.body.userName });
     }
     if (!user) {
       const newUser = await User.findByIdAndUpdate(
@@ -48,12 +50,13 @@ router.post("/", async (req, res) => {
         { new: true }
       );
       req.session.user = newUser;
-      res.redirect("/dashboard");
+      res.redirect("/admin");
     } else {
-      res.redirect("/dashboard");
+      res.redirect("/admin");
     }
   } catch (error) {
-    res.send(error);
+    console.log(error);
+    res.send({ error });
   }
 });
 

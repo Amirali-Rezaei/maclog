@@ -4,7 +4,6 @@ const User = require("../models/user");
 const Article = require("../models/article");
 const Comment = require("../models/comment");
 const bcrypt = require("bcryptjs");
-const mongoose = require("mongoose");
 
 router.get("/deleteUserByAdmin/:id", async (req, res) => {
   if (req.session.user && req.cookies.user_seed) {

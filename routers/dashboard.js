@@ -23,10 +23,11 @@ router.get("/", async (req, res) => {
 });
 
 router.post("/", async (req, res) => {
+  console.log("Slama");
   try {
     let user = false;
     if (req.body.userName != req.session.user.userName) {
-      user = await User.findOne(req.body.userName);
+      user = await User.findOne({ userName: req.body.userName });
     }
     if (!user) {
       const newUser = await User.findByIdAndUpdate(
@@ -40,7 +41,8 @@ router.post("/", async (req, res) => {
       res.redirect("/dashboard");
     }
   } catch (error) {
-    res.send(error);
+    console.log(error);
+    res.send({ error });
   }
 });
 
