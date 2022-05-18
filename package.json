@@ -4,7 +4,7 @@
   "description": "Blog",
   "main": "server.js",
   "scripts": {
-    "start": "nodemon server.js"
+    "start": "node server.js"
   },
   "keywords": [],
   "author": "Amirali Rezaei",
